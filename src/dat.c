@@ -45,16 +45,19 @@ C get_str(C ch)
 
 V make_struct_nmb(numbers par, I len)
 {
-	I n = rand()%5;
+	I n;;
 	I k;
 	k = rand()%len;
+	n = rand()%10;
+	n = (n > 4) ? 0 : n;					//< blank string more often
+
 	par->bck_col = rand()%len;
 
 	par->ch = (rand()%2) ? ' ' : ':';
 
 	par->hrt_col = k;
 	par->bl_str = blstr_mask(rand()%2, n);
-	par->str_col = (!n) ? k : rand()%3;
+	par->str_col = rand()%3;
 }
 
 
@@ -77,11 +80,6 @@ V num_to_back(numbers par, background back, S* col_palette, S* blink_st_palette,
 
 V make_arrays()													//< compose db and idx
 {
-	FILE *db, *idx;
-	I addr;
-	params par;
-	pParams p = {0};
-
 	C bck_chr[3] = " :\0";
 	S blnk_col[2]   = {CWHT, CRED};
 	S str[5];
