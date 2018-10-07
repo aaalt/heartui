@@ -27,7 +27,7 @@ V draw_side(S col, C ch, I w, I dif)
 
 V show_img(background heart_par, ter_conf _ter_conf)								//< print img 
 {
-	I j, dif, k = 0;
+	I j, dif, k = 0, height = _ter_conf->ws_row;
 	struct winsize a;
 	ter_conf _ter_var = &a;
 	C cnrm[7] = "\x1b[0;0m";
@@ -43,7 +43,7 @@ V show_img(background heart_par, ter_conf _ter_conf)								//< print img
 	}
 
 	O("%s", heart_par->bck_col);																			//<	set background colour
-	DO((_ter_conf->ws_row - HEART_H)/2, {DO(_ter_conf->ws_col, {O("%c", heart_par->ch);}); O("\n");}); 		//< draw top
+	DO((_ter_conf->ws_row - HEART_H)/2 - 1, {DO(_ter_conf->ws_col, {O("%c", heart_par->ch);}); O("\n");}); 		//< draw top
 	fflush(stdout);
 
 	dif = (_ter_conf->ws_col % 2) ? 0 : 1;													
@@ -94,7 +94,7 @@ V show_img(background heart_par, ter_conf _ter_conf)								//< print img
 
 	dif = (_ter_conf->ws_row % 2) ? 0 : 1;
 
-	DO((_ter_conf->ws_row - HEART_H)/2 + dif - 1, {DO(_ter_conf->ws_col, {O("%c", heart_par->ch);}); O("\n");}); 	//< draw down
+	DO((_ter_conf->ws_row - HEART_H)/2 + dif, {DO(_ter_conf->ws_col, {O("%c", heart_par->ch);}); O("\n");}); 	//< draw down
 	// DO((_ter_conf->ws_row - HEART_H)/2 + dif - 3, {DO(_ter_conf->ws_col, {O("%c", heart_par->ch);}); O("\n");}); 	//< draw down (test mode)
 
 	// O("w %d * h %d\n", _ter_conf->ws_col, _ter_conf->ws_row);
