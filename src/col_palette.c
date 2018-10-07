@@ -115,9 +115,9 @@ S* make_palette()
 {
 	I i, j, cnt = 0, line = lines(), k = 0;
 	S* colour = malloc(SZ(S) * line);
-	C str[8] = ":: ::\0";
+	// C str[8] = ":: ::\0";
 	for (i = 0; i < line + 1; i++)
-		colour[i] = malloc(SZ(C) * 50);
+		colour[i] = malloc(SZ(C) * 20);
 
 	colour[cnt] = col(0,8, colour[cnt]);					//<	add 0;8
 	// O("%d\t%s'%s'%s  [%d;%dm \t",cnt, colour[cnt], str, "\x1b[0;0m", i, j);
@@ -213,7 +213,7 @@ S* make_palette()
 
 
 	for (i = 0; i < line + 1; i++)
-		colour[i] = malloc(SZ(C) * 50);
+		colour[i] = malloc(SZ(C) * 20);
 
 	colour[cnt] = col(0,8, colour[cnt]);					//<	add 0;8
 	cnt++;
