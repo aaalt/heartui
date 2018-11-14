@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <string.h>
 
+#include "config.h"
 
 //<	0	colour_0
 //<	1	colour_1
@@ -44,7 +45,10 @@ S col(I a, I b, S colour)						//< returns "\x1b[0;0m\x1b[(a);(b)m"
 {
 	C str[50];
 	colour = malloc(SZ(C) * 30);
-	strcat(colour, "\x1b[0;0m\x1b[");
+	strcat(colour, ESC_SQ);
+	strcat(colour, "[0;0m");
+	strcat(colour, ESC_SQ);
+	strcat(colour, "[");
 	strcat(colour, itoa(a, str));
 	strcat(colour, ";");
 	strcat(colour, itoa(b, str));
@@ -61,11 +65,11 @@ V draw_palette(S* colour, I len)
 	for (i = 0; i < len; i++) {
 
 		if (k < 4) {
-			O("%s'%s'%s\t", colour[i], str, "\x1b[0;0m");
+			O("%s'%s'%s\t", colour[i], str, CNRM);
 			k++;
 		}
 		else {
-			O("%s'%s'%s\n", colour[i], str, "\x1b[0;0m");
+			O("%s'%s'%s\n", colour[i], str, CNRM);
 			k = 0;
 		}
 	}
