@@ -134,7 +134,7 @@ V draw_heart(S* col_palette, S* blink_st_palette, S* blink_col_palette, S* str_s
 	struct winsize a;
 	ter_conf _ter_conf = &a;
 
-	O("draw_heart();\n");
+	// O("draw_heart();\n");
 
 
 	CLEAR;

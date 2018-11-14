@@ -166,6 +166,7 @@ S* make_palette()
 }
 
 #endif
+
 #ifdef __APPLE__
 
 I lines()
