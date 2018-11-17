@@ -74,6 +74,7 @@ typedef pNumbers* numbers;
 #define CNRM 	"\x1b[0;0m\0"
 
 #endif 
+
 #ifdef __APPLE__
 
 #define ESC_SQ "\033"

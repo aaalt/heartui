@@ -100,7 +100,7 @@ V show_img(background heart_par, ter_conf _ter_conf)										//< print img
 }
 
 
-V window_dif_change(background heart_par, ter_conf _ter_conf, I pause)
+C window_dif_change(background heart_par, ter_conf _ter_conf, I pause)
 {
 	struct winsize a;
 	ter_conf _ter_var = &a;
@@ -111,9 +111,15 @@ V window_dif_change(background heart_par, ter_conf _ter_conf, I pause)
 	for (i = 0; i < j; i++) {
 		usleep(p);
 		ioctl(STDOUT_FILENO, TIOCGWINSZ, _ter_var);
+
+		if (kbhit())
+			R 0;
+
 		if (_ter_var->ws_col != _ter_conf->ws_col || _ter_var->ws_row != _ter_conf->ws_row)	
 			show_img(heart_par, _ter_conf);
 	}
+
+	R 1;
 }
 
 
@@ -141,14 +147,22 @@ V draw_heart(S* col_palette, S* blink_st_palette, S* blink_col_palette, S* str_s
 	for (;;) {
 		make_struct_nmb(nmb, len);
 
+		if(kbhit())													//< break if any key pressed
+    		break;	
+
 		num_to_back(nmb, heart_par, col_palette, blink_st_palette, blink_col_palette, str_st_palette, str_col_palette);
-		
-		pause = (pause == (SEC * 6)/7) ? (SEC*1)/2 : (SEC * 6)/7;	//< set pause
-		// pause = SEC * 3 /2;
-		window_dif_change(heart_par, _ter_conf, pause);	
 
 		if(kbhit())													//< break if any key pressed
     		break;	
+		
+		pause = (pause == (SEC * 6)/7) ? (SEC)/3 : (SEC * 6)/7;	//< set pause
+
+		if(kbhit())													//< break if any key pressed
+    		break;	
+
+		if (!window_dif_change(heart_par, _ter_conf, pause))
+			break;	
+
 	}
 
 	O("%s\n", CNRM);												//<	set back to normal
